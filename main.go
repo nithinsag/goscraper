@@ -16,7 +16,7 @@ type Listing struct {
 	Name     string `json:"name"`
 	Location string `json:"location"`
 	Company  string `json:"company"`
-	Region   string `json:region"`
+	Region   string `json:"region"`
 }
 
 func parseJobPage(url string) Listing {
@@ -71,7 +71,7 @@ func getListings(url string) []Listing {
 	document.Find(".jobs li > a").Each(processElement)
 
 	var wg sync.WaitGroup
-	goroutines := make(chan struct{}, 20)
+	goroutines := make(chan struct{}, 100)
 	listings := make([]Listing, 0)
 	for _, url := range remoteJobUrls {
 		wg.Add(1) // increasing wait group size to the no of urls
